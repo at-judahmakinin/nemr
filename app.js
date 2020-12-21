@@ -1,28 +1,12 @@
-const http = require('http')
-const fs = require('fs')
-const port = 3000
+const express = require('express');
+const bodyParser = require('body-parser');
 
-const server = http.createServer(function(req, res){
-    res.writeHead(200, {'Content-Type': 'text/html'})
-    fs.readFile('index.html', function(error, data){
-        if(error){
-            res.writeHead(404)
-            res.write('Error: File not found')
-        }
-        else{
-            res.write(data)
-        }
-        res.end()
-    })
+const app = express();
 
-})
+app.use(bodyParser.json());
 
-server.listen(port, function(error){
-    if(error){
-        console.log("something went wrong")
-    }
-    else{
-        console.log("Server is listening on port "+ port)
-    }
-})
+app.get('/', (req, res, next) => {
+    res.send('Hello World!');
+});
 
+app.listen(3000);
